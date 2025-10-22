@@ -11,7 +11,7 @@ const UI_TEXT = {
     featureExplanations: {
         mfcc_8_std: (
             'This feature captures how much the spectral structure of a birdsong varies over time.\n' +
-            'Songs with higher MFCC variability tend to sound more complex and expressive, reflecting a richer acoustic texture that may engage listeners more deeply.'
+            'Songs with higher MFCC variability tend to sound more complex and expressive.'
         ),
         chroma_A_std: (
            
