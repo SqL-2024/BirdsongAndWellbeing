@@ -30,6 +30,11 @@
             <div class="score-display">
                 <h2>🏆 Your Score</h2>
                 <div class="score-value" id="scoreValue">0.000</div>
+                <!-- 计算公式占位（用户可自行补充内容） -->
+                <details class="formula-card" id="scoreFormula" open>
+                    <summary>Computation Formula</summary>
+                    <div id="scoreFormulaContent">在这里补充得分计算公式…</div>
+                </details>
             </div>
             <div class="features-display" id="featuresDisplay">
                 <!-- Feature values will be displayed here -->
@@ -39,6 +44,19 @@
             <h2 style="text-align: center; margin-bottom: 30px; color: #333;">📊 Species Average Score Ranking</h2>
             <div id="speciesRanking" style="display: flex; gap: 30px;">
                 <!-- Top 10 和 Bottom 10 会由JS渲染 -->
+            </div>
+            <!-- 地图区域：在排名下方嵌入本地生成的 map.html -->
+            <div class="map-section" style="margin-top: 30px;">
+                <h2 style="text-align: center; margin-bottom: 20px; color: #333;">🗺️ WAI Map</h2>
+                <div class="map-card">
+                    <iframe
+                        class="map-frame"
+                        src="map.html"
+                        title="WAI Map"
+                        loading="lazy"
+                        referrerpolicy="no-referrer"
+                    ></iframe>
+                </div>
             </div>
         </div>
     </div>
