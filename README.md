@@ -1,2 +1,2 @@
-# birdsong-analyzer
-explore the mechanisms  of birdsong and wellbeing
+# birdsong and mental wellbeing
+explore the acoustic mechanisms  of birdsong and wellbeing
