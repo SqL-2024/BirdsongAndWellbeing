@@ -49,7 +49,7 @@ function renderExamples() {
         // 只渲染 Top 10 模块，移除 Bottom 10 红色模块
         rankingContainer.innerHTML = `
             <div class="species-ranking-top10" style="background:linear-gradient(135deg,#4CAF50,#45a049);padding:20px;border-radius:15px;margin-bottom:30px;flex:1;">
-                <h3 style="color:white;text-align:center;">Top 10 Species (Highest Average Score)</h3>
+                <h3 style="color:white;text-align:center;">Top 10 Species (English name(Binomial name))</h3>
                 <div id="speciesTop10"></div>
             </div>
         `;
