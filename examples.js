@@ -4,38 +4,38 @@
 const speciesRanking = [
     // ...existing top 10 species...
     {
-        latin: 'rubecula', score:1.339, name: 'European Robin', example: { url: 'https://xeno-canto.org/133862', score: 1.495, source: 'Mike Nelson, XC133862. Accessible at www.xeno-canto.org/133862.' }
+        latin: 'Erithacus rubecula', score:1.339, name: 'European Robin', example: { url: 'https://xeno-canto.org/133862', score: 1.495, source: 'Mike Nelson, XC133862. Accessible at www.xeno-canto.org/133862.' }
 
     },
     {
-        latin: 'arvensis', score: 1.330, name: 'Eurasian Skylark', example: { url: 'https://xeno-canto.org/158166', score: 1.435, source: 'david m, XC158166. Accessible at www.xeno-canto.org/158166.' }
+        latin: 'Alauda arvensis', score: 1.330, name: 'Eurasian Skylark', example: { url: 'https://xeno-canto.org/158166', score: 1.435, source: 'david m, XC158166. Accessible at www.xeno-canto.org/158166.' }
 
     },
     {
-        latin: 'calandra', score: 1.322, name: 'Corn Bunting', example: { url: 'https://xeno-canto.org/123167', score: 1.435, source: 'david m, XC123167. Accessible at www.xeno-canto.org/123167.' }
+        latin: 'Emberiza calandra', score: 1.322, name: 'Corn Bunting', example: { url: 'https://xeno-canto.org/123167', score: 1.435, source: 'david m, XC123167. Accessible at www.xeno-canto.org/123167.' }
     },
     {
-        latin: 'troglodytes', score: 1.302, name: 'Eurasian Wren', example: { url: 'https://xeno-canto.org/133872', score: 1.337, source: 'Mike Nelson, XC133872. Accessible at www.xeno-canto.org/133872.' }
+        latin: 'Troglodytes troglodytes', score: 1.302, name: 'Eurasian Wren', example: { url: 'https://xeno-canto.org/133872', score: 1.337, source: 'Mike Nelson, XC133872. Accessible at www.xeno-canto.org/133872.' }
 
     },
     {
-        latin: 'philomelos', score:1.300, name: 'Song Thrush', example: { url: 'https://xeno-canto.org/96608', score: 1.403, source: 'Fraser Simpson, XC96608. Accessible at www.xeno-canto.org/96608.' }
+        latin: 'Turdus philomelos', score:1.300, name: 'Song Thrush', example: { url: 'https://xeno-canto.org/96608', score: 1.403, source: 'Fraser Simpson, XC96608. Accessible at www.xeno-canto.org/96608.' }
     },
     {
-        latin: 'pratensis', score: 1.237, name: 'Meadow Pipit', example: { url: 'https://xeno-canto.org/138979', score: 1.302, source: 'Fernand DEROUSSEN, XC138979. Accessible at www.xeno-canto.org/138979.' }
+        latin: 'Anthus pratensis', score: 1.237, name: 'Meadow Pipit', example: { url: 'https://xeno-canto.org/138979', score: 1.302, source: 'Fernand DEROUSSEN, XC138979. Accessible at www.xeno-canto.org/138979.' }
     },
     {
-        latin: 'caeruleus', score: 1.215, name: 'Eurasian Blue Tit', example: { url: 'https://xeno-canto.org/44203', score: 1.301, source: 'Stuart Fisher, XC44203. Accessible at www.xeno-canto.org/44203.' }
+        latin: 'Cyanistes caeruleus', score: 1.215, name: 'Eurasian Blue Tit', example: { url: 'https://xeno-canto.org/44203', score: 1.301, source: 'Stuart Fisher, XC44203. Accessible at www.xeno-canto.org/44203.' }
     },
     {
-        latin: 'fluviatilis', score: 1.205, name: 'River Warbler', example: { url: 'https://xeno-canto.org/140557', score: 1.376, source: 'Fernand DEROUSSEN, XC140557. Accessible at www.xeno-canto.org/140557.' }
+        latin: 'Locustella fluviatilis', score: 1.205, name: 'River Warbler', example: { url: 'https://xeno-canto.org/140557', score: 1.376, source: 'Fernand DEROUSSEN, XC140557. Accessible at www.xeno-canto.org/140557.' }
 
     },
     {
-        latin: 'atricapilla', score:1.195, name: 'Eurasian Blackcap', example: { url: 'https://xeno-canto.org/94967', score: 1.350, source: 'Richard Dunn, XC94967. Accessible at www.xeno-canto.org/94967.' }
+        latin: 'Sylvia atricapilla', score:1.195, name: 'Eurasian Blackcap', example: { url: 'https://xeno-canto.org/94967', score: 1.350, source: 'Richard Dunn, XC94967. Accessible at www.xeno-canto.org/94967.' }
     },
     {
-        latin: 'borin', score: 1.190, name: 'Garden Warbler', example: { url: 'https://xeno-canto.org/146260', score: 1.262, source: 'david m, XC146260. Accessible at www.xeno-canto.org/146260.' }
+        latin: 'Sulvia borin', score: 1.190, name: 'Garden Warbler', example: { url: 'https://xeno-canto.org/146260', score: 1.262, source: 'david m, XC146260. Accessible at www.xeno-canto.org/146260.' }
 
     },
     
