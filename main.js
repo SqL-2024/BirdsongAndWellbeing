@@ -6,7 +6,8 @@ const UI_TEXT = {
     scoreFormula: (
         'DTI = 0.38 × MFCC_8_std + 0.33 × Spectral_Rolloff_std + 0.31 ×  Low_Energy' +
         '\n\nFeatures are normalized to [0, 1] range before scoring.' +
-        '\nMore details can be found in the paper: 《Birdsong Acoustic Features and Human Wellbeing: Evidence from Real-World Audio Data》'
+        '\nMore details can be found in the paper: 《Birdsong Acoustic Features and Human Wellbeing: Evidence from Real-World Audio Data》' +
+        '\nTo run in the browser, we use lightweight proxy features instead of exact librosa/MIR equivalents. They may differ numerically, but preserve similar temporal dynamics and perceptual trends for interactive wellbeing-oriented analysis.'
     ),
     // 2) 每个特征的解释（默认展开显示）
     featureExplanations: {
