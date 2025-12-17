@@ -48,12 +48,11 @@ class AudioAnalyzer {
             fftResults.push(this.simpleFFT(frame));
         }
         
-        // Calculate all features using pre-computed FFTs
+        // Calculate the three required features
         return {
             mfcc_8_std: this.calculateMFCCStdOptimized(fftResults, 8),
-            spectral_centroid_std: this.calculateSpectralCentroidStdOptimized(fftResults, sampleRate),
-            chroma_A_std: this.calculateChromaStdOptimized(fftResults, sampleRate, 'A'),
-            pulse_clarity: this.calculatePulseClarityOptimized(frames, sampleRate)
+            spectral_rolloff_std: this.calculateSpectralRolloffStd(fftResults, sampleRate),
+            low_energy: this.calculateLowEnergy(frames)
         };
     }
     calculateMFCCStdOptimized(fftResults, coeffIndex) {
@@ -63,44 +62,48 @@ class AudioAnalyzer {
         });
         return this.std(mfccValues);
     }
-    calculateSpectralCentroidStdOptimized(fftResults, sampleRate) {
-        const centroids = fftResults.map(magnitude => {
-            let weightedSum = 0, magnitudeSum = 0;
+    calculateSpectralRolloffStd(fftResults, sampleRate) {
+        // Calculate spectral rolloff at 85% energy point for each frame
+        const rolloffValues = fftResults.map(magnitude => {
+            // Calculate cumulative energy
+            const totalEnergy = magnitude.reduce((sum, val) => sum + val, 0);
+            const threshold = totalEnergy * 0.85;
+            
+            let cumulativeEnergy = 0;
+            let rolloffBin = 0;
+            
             for (let i = 0; i < magnitude.length; i++) {
-                const freq = i * sampleRate / (2 * magnitude.length);
-                weightedSum += freq * magnitude[i];
-                magnitudeSum += magnitude[i];
+                cumulativeEnergy += magnitude[i];
+                if (cumulativeEnergy >= threshold) {
+                    rolloffBin = i;
+                    break;
+                }
             }
-            return magnitudeSum > 0 ? weightedSum / magnitudeSum : 0;
+            
+            // Convert bin to frequency
+            const rolloffFreq = rolloffBin * sampleRate / (2 * magnitude.length);
+            return rolloffFreq;
         });
-        return this.std(centroids);
-    }
-    calculateChromaStdOptimized(fftResults, sampleRate, note) {
-        const noteFreqs = {'A': 440, 'B': 493.88, 'C': 261.63};
-        const targetFreq = noteFreqs[note] || 440;
-        const binFreq = sampleRate / (2 * fftResults[0].length);
-        const targetBin = Math.round(targetFreq / binFreq);
-        const windowSize = 5;
         
-        const chromaValues = fftResults.map(magnitude => {
-            let energy = 0;
-            for (let i = Math.max(0, targetBin - windowSize); i < Math.min(magnitude.length, targetBin + windowSize); i++) {
-                energy += magnitude[i];
-            }
-            return energy;
+        return this.std(rolloffValues);
+    }
+    
+    calculateLowEnergy(frames) {
+        // Calculate RMS energy for each frame
+        const rmsValues = frames.map(frame => {
+            const sumSquares = frame.reduce((sum, x) => sum + x * x, 0);
+            return Math.sqrt(sumSquares / frame.length);
         });
-        return this.std(chromaValues);
-    }
-    calculatePulseClarityOptimized(frames, sampleRate) {
-        const energies = frames.map(frame => frame.reduce((sum, x) => sum + x * x, 0));
         
-        // Optimized autocorrelation using FFT
-        const fft = this.simpleFFT(energies);
-        const powerSpectrum = fft.map(x => x * x);
-        const ifft = this.simpleFFT(powerSpectrum).map(x => x / energies.length);
+        // Calculate energy threshold (50% of mean RMS)
+        const meanRMS = rmsValues.reduce((sum, x) => sum + x, 0) / rmsValues.length;
+        const energyThreshold = meanRMS * 0.5;
         
-        const peaks = this.findPeaks(ifft);
-        return peaks.length > 0 ? Math.min(peaks[0] / ifft.length, 1.0) : 0.5;
+        // Count frames below threshold
+        const lowEnergyFrames = rmsValues.filter(rms => rms < energyThreshold).length;
+        
+        // Return ratio of low energy frames
+        return lowEnergyFrames / rmsValues.length;
     }
     simpleFFT(frame) {
         const N = frame.length;
@@ -168,17 +171,20 @@ class AudioAnalyzer {
         return Math.sqrt(variance);
     }
     calculateScore(features) {
-        //normalized score calculation
+        // Normalized score calculation with new features
         console.log('Calculating score with features:', features);
-        features.mfcc_8_std = Math.min(Math.max((features.mfcc_8_std - 0) / (26 - 0), 0), 1); //min 0, max 26
-        features.spectral_centroid_std = Math.min(Math.max((features.spectral_centroid_std - 0) / (1670 - 0), 0), 1);//min 0, max 1670
-        features.chroma_A_std = Math.min(Math.max((features.chroma_A_std - 0) / (0.5 - 0), 0), 1); //min 0, max 0.5
-        features.pulse_clarity = Math.min(Math.max((features.pulse_clarity - 0) / (1 - 0), 0), 1);//min 0, max 1
-        // weighted sum
-        return 0.65 * features.mfcc_8_std +
-               0.4 * features.spectral_centroid_std +
-               0.5 * features.chroma_A_std +
-               0.39 * features.pulse_clarity;
+        
+        // Normalize features to [0, 1] range
+        const mfcc_norm = Math.min(Math.max((features.mfcc_8_std - 0) / (25 - 0), 0), 1); // min 0, max 25
+        const rolloff_norm = Math.min(Math.max((features.spectral_rolloff_std - 0) / (3500 - 0), 0), 1); // min 0, max ~3500Hz
+        const low_energy_norm = Math.min(Math.max(features.low_energy, 0), 1); // already in [0, 1]
+        
+        // Weighted sum (weights sum to ~1.0)
+        // Higher MFCC and rolloff std = more complex/dynamic = higher score
+        // Lower low_energy ratio = more energetic = higher score, so we use (1 - low_energy)
+        return 0.38 * mfcc_norm +
+               0.33 * rolloff_norm +
+               0.31 * low_energy_norm;
     }
     // getPercentile(score) {
     //     if (score < this.birdScorePercentiles[10]) {

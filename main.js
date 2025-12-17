@@ -4,27 +4,26 @@
 const UI_TEXT = {
     // 3) 计算公式文本（默认展开显示），可按需调整
     scoreFormula: (
-        'WAI = 0.65 × MFCC_8_std + 0.50 × chroma_A_std + 0.40 × spectral_centroid_std + 0.39 × pulse_clarity' +
-        '\n\nMore detail can be found in the paper: 《Birdsong Acoustic Features and Human Wellbeing: Evidence from Real-World Audio Data》'
+        'DTI = 0.38 × MFCC_8_std + 0.33 × Spectral_Rolloff_std + 0.31 ×  Low_Energy' +
+        '\n\nFeatures are normalized to [0, 1] range before scoring.' +
+        '\nMore details can be found in the paper: 《Birdsong Acoustic Features and Human Wellbeing: Evidence from Real-World Audio Data》'
     ),
     // 2) 每个特征的解释（默认展开显示）
     featureExplanations: {
         mfcc_8_std: (
-            'This feature captures how much the spectral structure of a birdsong varies over time.\n' +
-            'Songs with higher MFCC variability tend to sound more complex and expressive.'
+            '🎵 MFCC 8 Standard Deviation (MFCC_8_std)\n\n' +
+            'Reflects the variability in spectral complexity, an important marker of vocal richness and expressiveness.\n' +
+            'Higher values indicate more dynamic and complex frequency structures within the birdsong, which were linked to greater wellbeing effects.'
         ),
-        chroma_A_std: (
-           
-            'This feature captures changes in harmony and tone—how the notes shift over time.\n' +
-            'Greater variation makes the song sound more melodic and balanced, which is often felt as pleasant and calming.'
+        spectral_rolloff_std: (
+            '✨ Spectral Rolloff Standard Deviation (Spectral_Rolloff_std)\n\n' +
+            'Measures the variation in the frequency below which 85% of the spectral energy is concentrated.\n' +
+            'Greater variation indicates dynamic shifts in spectral energy distribution, contributing to a richer and more engaging auditory experience.'
         ),
-        spectral_centroid_std: (
-            'The spectral centroid reflects the “brightness” of a sound.\n' +
-            'When its variability is high, the song moves between lighter and darker tones, giving it a lively and textured character rather than a flat or monotonous one'
-        ),
-        pulse_clarity: (
-            'It quantifies the temporal regularity and rhythmic clarity of the birdsong.\n' +
-            'Clearer rhythmic structure is associated with a more organized, soothing auditory experience.'
+        low_energy: (
+            '🔋 Low Energy Ratio (Low_Energy)\n\n' +
+            'Quantifies the proportion of time frames with energy below 50% of the mean RMS energy.\n' +
+            'Higher values indicate more frequent low-energy intervals or pauses between vocalizations, which provide listeners with brief cognitive respite and support attention restoration and positive wellbeing effects'
         )
     }
 };
@@ -114,32 +113,24 @@ function displayResults(features, score, analyzer) {
             <div class="feature-label">MFCC-8 Standard Deviation</div>
             <div class="feature-value">${features.mfcc_8_std.toFixed(4)}</div>
             <details class="feature-explain" open>
-                <summary>feature explanation</summary>
+                <summary>Feature Explanation</summary>
                 <div>${UI_TEXT.featureExplanations.mfcc_8_std}</div>
             </details>
         </div>
         <div class="feature-card">
-            <div class="feature-label">Spectral Centroid Std</div>
-            <div class="feature-value">${features.spectral_centroid_std.toFixed(4)}</div>
+            <div class="feature-label">Spectral Rolloff Std</div>
+            <div class="feature-value">${features.spectral_rolloff_std.toFixed(4)}</div>
             <details class="feature-explain" open>
-                <summary>feature explanation</summary>
-                <div>${UI_TEXT.featureExplanations.spectral_centroid_std}</div>
+                <summary>Feature Explanation</summary>
+                <div>${UI_TEXT.featureExplanations.spectral_rolloff_std}</div>
             </details>
         </div>
         <div class="feature-card">
-            <div class="feature-label">Chroma A Standard Deviation</div>
-            <div class="feature-value">${features.chroma_A_std.toFixed(4)}</div>
+            <div class="feature-label">Low Energy Ratio</div>
+            <div class="feature-value">${features.low_energy.toFixed(4)}</div>
             <details class="feature-explain" open>
-                <summary>feature explanation</summary>
-                <div>${UI_TEXT.featureExplanations.chroma_A_std}</div>
-            </details>
-        </div>
-        <div class="feature-card">
-            <div class="feature-label">Pulse Clarity</div>
-            <div class="feature-value">${features.pulse_clarity.toFixed(4)}</div>
-            <details class="feature-explain" open>
-                <summary>feature explanation</summary>
-                <div>${UI_TEXT.featureExplanations.pulse_clarity}</div>
+                <summary>Feature Explanation</summary>
+                <div>${UI_TEXT.featureExplanations.low_energy}</div>
             </details>
         </div>
     `;
