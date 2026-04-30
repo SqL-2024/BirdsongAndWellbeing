@@ -128,11 +128,11 @@ function displayResults(features, score, analyzer) {
             </details>
         </div>
         <div class="feature-card">
-            <div class="feature-label">Low Energy Ratio</div>
-            <div class="feature-value">${features.low_energy.toFixed(4)}</div>
+            <div class="feature-label">Chroma A std</div>
+            <div class="feature-value">${features.chroma_A_std.toFixed(4)}</div>
             <details class="feature-explain" open>
                 <summary>Feature Explanation</summary>
-                <div>${UI_TEXT.featureExplanations.low_energy}</div>
+                <div>${UI_TEXT.featureExplanations.chroma_A_std}</div>
             </details>
         </div>
     `;
