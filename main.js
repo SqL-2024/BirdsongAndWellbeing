@@ -4,9 +4,9 @@
 const UI_TEXT = {
     // 3) 计算公式文本（默认展开显示），可按需调整
     scoreFormula: (
-        'DTI = 0.38 × MFCC_8_std + 0.33 × Spectral_Rolloff_std + 0.31 ×  Low_Energy' +
+        'DTI = 0.73 × MFCC_8_std + 0.69 × Chroma_A_std + 0.67 ×  Spectral_Rolloff_std' +
         '\n\nFeatures are normalized to [0, 1] range before scoring.' +
-        '\nMore details can be found in the paper: 《Birdsong Acoustic Features and Human Wellbeing: Evidence from Real-World Audio Data》' +
+        '\nMore details can be found in the paper: 《Associations with between birdsong environments and human momentary affect wellbeing: evidence from real-world》' +
         '\nTo run in the browser, we use lightweight proxy features instead of exact librosa/MIR equivalents. They may differ numerically, but preserve similar temporal dynamics and perceptual trends for interactive wellbeing-oriented analysis.'
     ),
     // 2) 每个特征的解释（默认展开显示）
@@ -16,16 +16,17 @@ const UI_TEXT = {
             'Reflects the variability in spectral complexity, an important marker of vocal richness and expressiveness.\n' +
             'Higher values indicate more dynamic and complex frequency structures within the birdsong, which were linked to greater wellbeing effects.'
         ),
+        chroma_A_std: (
+        '✨ Chroma A Standard Deviation (Chroma_A_std)\n\n' +
+        'Measures the variability of energy associated with the pitch class A (A note) across time.\n' +
+        'Higher values indicate greater fluctuations in harmonic content related to the A pitch class, reflecting increased tonal variability and dynamic harmonic movement in the acoustic signal.'
+        ),
         spectral_rolloff_std: (
             '✨ Spectral Rolloff Standard Deviation (Spectral_Rolloff_std)\n\n' +
             'Measures the variation in the frequency below which 85% of the spectral energy is concentrated.\n' +
             'Greater variation indicates dynamic shifts in spectral energy distribution, contributing to a richer and more engaging auditory experience.'
         ),
-        low_energy: (
-            '🔋 Low Energy Ratio (Low_Energy)\n\n' +
-            'Quantifies the proportion of time frames with energy below 50% of the mean RMS energy.\n' +
-            'Higher values indicate more frequent low-energy intervals or pauses between vocalizations, which provide listeners with brief cognitive respite and support attention restoration and positive wellbeing effects'
-        )
+        
     }
 };
 
