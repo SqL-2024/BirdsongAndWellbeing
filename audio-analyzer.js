@@ -48,11 +48,11 @@ class AudioAnalyzer {
             fftResults.push(this.simpleFFT(frame));
         }
         
-        // Calculate the three required features
+        // Calculate required features
         return {
             mfcc_8_std: this.calculateMFCCStdOptimized(fftResults, 8),
             spectral_rolloff_std: this.calculateSpectralRolloffStd(fftResults, sampleRate),
-            low_energy: this.calculateLowEnergy(frames)
+            chroma_A_std: this.calculateChromaAStd(fftResults, sampleRate)
         };
     }
     calculateMFCCStdOptimized(fftResults, coeffIndex) {
@@ -88,22 +88,30 @@ class AudioAnalyzer {
         return this.std(rolloffValues);
     }
     
-    calculateLowEnergy(frames) {
-        // Calculate RMS energy for each frame
-        const rmsValues = frames.map(frame => {
-            const sumSquares = frame.reduce((sum, x) => sum + x * x, 0);
-            return Math.sqrt(sumSquares / frame.length);
+     calculateChromaAStd(fftResults, sampleRate) {
+        // Map frequency bins to chroma A (pitch class A ~ 440 Hz class)
+        const chromaAValues = fftResults.map(magnitude => {
+            let energyA = 0;
+            let totalEnergy = 0;
+    
+            for (let i = 0; i < magnitude.length; i++) {
+                const freq = i * sampleRate / (2 * magnitude.length);
+    
+                // convert frequency to chroma class (A ≈ 440 Hz and octave equivalents)
+                const chroma = 12 * Math.log2(freq / 440);
+                const normalizedChroma = ((Math.round(chroma) % 12) + 12) % 12;
+    
+                if (normalizedChroma === 0) { // A class
+                    energyA += magnitude[i];
+                }
+    
+                totalEnergy += magnitude[i];
+            }
+    
+            return totalEnergy > 0 ? energyA / totalEnergy : 0;
         });
-        
-        // Calculate energy threshold (50% of mean RMS)
-        const meanRMS = rmsValues.reduce((sum, x) => sum + x, 0) / rmsValues.length;
-        const energyThreshold = meanRMS * 0.5;
-        
-        // Count frames below threshold
-        const lowEnergyFrames = rmsValues.filter(rms => rms < energyThreshold).length;
-        
-        // Return ratio of low energy frames
-        return lowEnergyFrames / rmsValues.length;
+    
+        return this.std(chromaAValues);
     }
     simpleFFT(frame) {
         const N = frame.length;
@@ -171,20 +179,17 @@ class AudioAnalyzer {
         return Math.sqrt(variance);
     }
     calculateScore(features) {
-        // Normalized score calculation with new features
         console.log('Calculating score with features:', features);
         
-        // Normalize features to [0, 1] range
-        const mfcc_norm = Math.min(Math.max((features.mfcc_8_std - 0) / (25 - 0), 0), 1); // min 0, max 25
-        const rolloff_norm = Math.min(Math.max((features.spectral_rolloff_std - 0) / (3500 - 0), 0), 1); // min 0, max ~3500Hz
-        const low_energy_norm = Math.min(Math.max(features.low_energy, 0), 1); // already in [0, 1]
-        
-        // Weighted sum (weights sum to ~1.0)
-        // Higher MFCC and rolloff std = more complex/dynamic = higher score
-        // Lower low_energy ratio = more energetic = higher score, so we use (1 - low_energy)
-        return 0.38 * mfcc_norm +
-               0.33 * rolloff_norm +
-               0.31 * low_energy_norm;
+        const mfcc_norm = Math.min(Math.max((features.mfcc_8_std - 0) / (25 - 0), 0), 1);
+        const rolloff_norm = Math.min(Math.max((features.spectral_rolloff_std - 0) / (3500 - 0), 0), 1);
+        const chromaA_norm = Math.min(
+            Math.max((features.chroma_A_std - 0) / (0.5 - 0), 0),
+            1
+        );    
+        return 0.73 * mfcc_norm +
+               0.69 * chromaA_norm +
+               0.67 * rolloff_norm;
     }
     // getPercentile(score) {
     //     if (score < this.birdScorePercentiles[10]) {
