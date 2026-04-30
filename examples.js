@@ -3,32 +3,33 @@
 // 四个区域的鸟类排名数据（每个区域Top 5）
 const regionalRanking = {
     americas: [
-        { latin: 'Toxostoma curvirostre', score: 0.788, name: 'Curve-billed Thrasher', example: { url: 'https://xeno-canto.org/377565', score: 0.874, source: 'Pat Goltz, XC377565.' } },
-        { latin: 'Cyclarhis gujanensis', score: 0.706, name: 'Rufous-browed Peppershrike', example: { url: 'https://xeno-canto.org/552908', score: 0.769, source: 'Guillermo Treboux, XC552908.' } },
-        { latin: 'Vireo gilvus', score: 0.694, name: 'Warbling Vireo', example: { url: 'https://xeno-canto.org/812838', score: 0.708, source: 'Paul Marvin, XC812838.' } },
-        { latin: 'Setophaga aestiva', score: 0.678, name: 'American Yellow Warbler', example: { url: 'https://xeno-canto.org/1046362', score: 0.736, source: 'AUDEVARD Aurélien, XC1046362.' } },
-        { latin: 'Thryomanes bewickii eremophilus', score: 0.628, name: 'Bewick\'s Wren', example: { url: 'https://xeno-canto.org/995434', score: 0.662, source: 'Bill Pyle, XC995434.' } }
+        { latin: 'Toxostoma curvirostre', score: 1.41, name: 'Curve-billed Thrasher', example: { url: 'https://xeno-canto.org/377565', score: 1.57, source: 'Pat Goltz, XC377565.' } },
+        { latin: 'Cyclarhis gujanensis', score: 1.27, name: 'Rufous-browed Peppershrike', example: { url: 'https://xeno-canto.org/552908', score: 1.36, source: 'Guillermo Treboux, XC552908.' } },
+        { latin: 'Vireo gilvus', score: 1.23, name: 'Warbling Vireo', example: { url: 'https://xeno-canto.org/812838', score: 1.28, source: 'Paul Marvin, XC812838.' } },
+        { latin: 'Setophaga aestiva', score: 1.17, name: 'American Yellow Warbler', example: { url: 'https://xeno-canto.org/1046362', score: 1.28, source: 'AUDEVARD Aurélien, XC1046362.' } },
+        { latin: 'Thryomanes bewickii eremophilus', score: 1.11, name: 'Bewick\'s Wren', example: { url: 'https://xeno-canto.org/995434', score: 1.20, source: 'Bill Pyle, XC995434.' } }
     ],
     asia: [
-        { latin: 'Periparus ater ater', score: 0.726, name: 'Coal Tit', example: { url: 'https://xeno-canto.org/916380', score: 0.753, source: 'Peter Boesman, XC916380.' } },
-        { latin: 'Pellorneum ruficeps', score: 0.666, name: 'Puff-throated Babbler', example: { url: 'https://xeno-canto.org/992881', score: 0.708, source: 'Peter Ericsson, XC992881.' } },
-        { latin: 'Phylloscopus xanthoschistos', score: 0.657, name: 'Grey-hooded Warbler', example: { url: 'https://xeno-canto.org/950758', score: 0.725, source: 'Pratap Singh, XC950758.' } },
-        { latin: 'Phylloscopus inornatus', score: 0.643, name: 'Yellow-browed Warbler', example: { url: 'https://xeno-canto.org/995185', score: 0.696, source: 'Bo Shunqi 薄顺奇, XC995185.' } },
-        { latin: 'Eudynamys scolopaceus', score: 0.641, name: 'Asian Koel', example: { url: 'https://xeno-canto.org/983831', score: 0.774, source: 'Swami Bogim, XC983831.' } }
+        { latin: 'Periparus ater ater', score: 1.29, name: 'Coal Tit', example: { url: 'https://xeno-canto.org/916380', score: 1.37, source: 'Peter Boesman, XC916380.' } },
+        { latin: 'Pellorneum ruficeps', score: 1.18, name: 'Puff-throated Babbler', example: { url: 'https://xeno-canto.org/877660', score: 1.31, source: 'Lim Ying Hien, XC877660.' } },
+        { latin: 'Phylloscopus inornatus', score: 1.13, name: 'Yellow-browed Warbler', example: { url: 'https://xeno-canto.org/995185', score: 1.25, source: 'Bo Shunqi 薄顺奇, XC995185.' } },
+        { latin: 'Eudynamys scolopaceus', score: 1.12, name: 'Asian Koel', example: { url: 'https://xeno-canto.org/983831', score:1.42, source: 'Swami Bogim, XC983831.' } },
+        { latin: 'Eudynamys scolopaceus', score: 1.11, name: 'Arctic Warbler', example: { url: 'https://xeno-canto.org/896729', score: 1.32, source: 'Zbigniew Kajzer, XC896729.' } }
+
     ],
     europe: [
-        { latin: 'Troglodytes troglodytes', score: 0.708, name: 'Eurasian Wren', example: { url: 'https://xeno-canto.org/1053191', score: 0.774, source: 'Susanne Kuijpers, XC1053191.' } },
-        { latin: 'Turdus philomelos', score: 0.700, name: 'Song Thrush', example: { url: 'https://xeno-canto.org/1004195', score: 0.722, source: 'Jorge Leitão, XC1004195.' } },
-        { latin: 'Periparus ater', score: 0.697, name: 'Coal Tit', example: { url: 'https://xeno-canto.org/1011037', score: 0.745, source: 'Olivier SWIFT, XC1011037.' } },
-        { latin: 'Parus major', score: 0.688, name: 'Great Tit', example: { url: 'https://xeno-canto.org/1009333', score: 0.772, source: 'Jorge Leitão, XC1009333.' } },
-        { latin: 'Sylvia atricapilla', score: 0.679, name: 'Eurasian Blackcap', example: { url: 'https://xeno-canto.org/1023368', score: 0.689, source: 'Elias A. Ryberg, XC1023368.' } }
+        { latin: 'Troglodytes troglodytes', score: 1.29, name: 'Eurasian Wren', example: { url: 'https://xeno-canto.org/1053191', score: 1.43, source: 'Susanne Kuijpers, XC1053191.' } },
+        { latin: 'Turdus philomelos', score: 1.27, name: 'Song Thrush', example: { url: 'https://xeno-canto.org/1004195', score: 1.43, source: 'Jorge Leitão, XC1004195.' } },
+        { latin: 'Periparus ater', score: 1.21, name: 'Coal Tit', example: { url: 'https://xeno-canto.org/1011037', score: 1.30, source: 'Olivier SWIFT, XC1011037.' } },
+        { latin: 'Parus major', score: 1.20, name: 'Great Tit', example: { url: 'https://xeno-canto.org/1009333', score: 1.39, source: 'Jorge Leitão, XC1009333.' } },
+        { latin: 'Sylvia atricapilla', score: 1.19, name: 'Eurasian Blackcap', example: { url: 'https://xeno-canto.org/1023368', score: 1.23, source: 'Elias A. Ryberg, XC1023368.' } }
     ],
     uk: [
-        { latin: 'Turdus philomelos', score: 0.726, name: 'Song Thrush', example: { url: 'https://xeno-canto.org/96608', score:0.765, source: 'Fraser Simpson, XC96608.' } },
-        { latin: 'Alauda arvensis', score: 0.706, name: 'Eurasian Skylark', example: { url: 'https://xeno-canto.org/158166', score: 0.755, source: 'david m, XC158166.' } },
-        { latin: 'Erithacus rubecula', score: 0.702, name: 'European Robin', example: { url: 'https://xeno-canto.org/133862', score: 0.806, source: 'Mike Nelson, XC133862.' } },
-        { latin: 'Sylvia atricapilla', score: 0.700, name: 'Eurasian Blackcap', example: { url: 'https://xeno-canto.org/94967', score: 0.818, source: 'Richard Dunn, XC94967.' } },
-        { latin: 'Sylvia curruca', score: 0.697, name: 'Lesser Whitethroat', example: { url: 'https://xeno-canto.org/101932', score: 0.754, source: 'Richard Dunn, XC101932.' } }
+        { latin: 'Streptopelia decaocto', score: 1.30, name: 'Eurasian Collared Dove', example: { url: 'https://xeno-canto.org/101941', score:1.54, source: 'Richard Dunn, XC101941.' } },
+        { latin: 'Turdus philomelos', score: 1.28, name: 'Song Thrush', example: { url: 'https://xeno-canto.org/96608', score:1.37, source: 'Fraser Simpson, XC96608.' } },
+        { latin: 'Alauda arvensis', score: 1.25, name: 'Eurasian Skylark', example: { url: 'https://xeno-canto.org/158166', score: 1.38, source: 'david m, XC158166.' } },
+        { latin: 'Sylvia atricapilla', score: 1.25, name: 'Eurasian Blackcap', example: { url: 'https://xeno-canto.org/94967', score: 1.50, source: 'Richard Dunn, XC94967.' } },
+        { latin: 'Columba palumbus', score: 1.24, name: 'Common Wood Pigeon', example: { url: 'https://xeno-canto.org/130993', score:0.765, source: 'Ashley Fisher, XC130993.' } },
     ]
 };
 
